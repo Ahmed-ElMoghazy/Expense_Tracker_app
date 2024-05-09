@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js/dist';
+import { Chart } from 'chart.js/auto';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Transaction } from 'src/app/classes/transaction/transaction';
 import { TrackerService } from 'src/app/services/tracker/tracker.service';
@@ -19,7 +19,7 @@ export class IncomeReportComponent implements OnInit{
   transactionsArr!: Transaction[];
   chartData: any = {};
   descendingLabelsArr!:string[];
-  
+
   canvas!:any;
 
   ngOnInit(): void {
@@ -28,20 +28,20 @@ export class IncomeReportComponent implements OnInit{
     setTimeout(() => {
       this._spinner.hide();
     }, 1000);
-    
+
     this.prepareChartData();
     this.canvas = document.getElementById('transactionChartIncome') as HTMLCanvasElement;
 
     if (this.canvas) {
       const canvasContect = this.canvas.getContext('2d');
       // sets the chart configuration
-      new Chart(canvasContect!, {
+      new Chart(canvasContect!, { options :{ responsive: true,
+        maintainAspectRatio: true,},
         type: 'doughnut',
         data: this.chartData,
-        responsive: true,
-        maintainAspectRatio: true, 
+
       });
-    } 
+    }
   }
 
   // a method to set the data displayed in the chart
